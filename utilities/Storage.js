@@ -28,6 +28,14 @@ const removeRequest = (id) => {
     Requests.delete(id);
 };
 
+const removeRequestFromUser = (userid, request) => {
+    for (const [k, v] of Requests.entries()) {
+        if (v.user === userid && v.request === request) {
+            removeRequest(k)
+        }
+    }
+}
+
 const getRequestsArray = async () => {
     // console.log('Requests:', Requests); // Log Requests to see its structure
     var allRequests = [];
@@ -83,5 +91,6 @@ module.exports = {
     getRequestsArray,
     foundRequest,
     updateStatus,
-    checkUserRequests
+    checkUserRequests,
+    removeRequestFromUser
 };
