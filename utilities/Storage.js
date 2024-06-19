@@ -14,12 +14,13 @@ const connectDB = async (c) => {
     DB = new Database();
 };
 
-const addRequest = (id, userId, request, finished = 0, update = false) => {
+const addRequest = async (id, userId, request, finished = 0, update = false) => {
     var newRequest = { id: id, user: userId, request: request, finished: 0 };
     Requests.set(id, newRequest);
     if (update) {
         DB.add("INSERT OR REPLACE INTO requests (id, userid, request, finished) VALUES (?, ?, ?, ?)", [id, userId, request, finished]);
     }
+    return;
 };
 
 const removeRequest = (id) => {
@@ -43,18 +44,19 @@ const foundRequest = async (found, seed, address) => {
             removeRequest(k);
             try {
                 const user = await Client.users.fetch(v.user);
+                console.log(`>>FOUND>> ${user.displayName} -found- ${v.request}`);
                 const embed = new EmbedBuilder()
                     .setTitle(`Vanity Address Found!`)
                     .setColor(Colors.Green)
-                    .setDescription(`**Phrase:** ${v.request}\n**Address: **${address}\n**Seed:** ${seed}\n\n*It is advised that you delete this message as soon as possible*`);
+                    .setDescription(`**Phrase:** ${v.request}\n**Address: **${address}\n**Seed:** ${seed}\n\nAll addresses are derived from the seeds using the 'ecdsa-secp256k1' algorithm.\n\n*It is advised that you CLOSE THIS DM CHAT as soon as possible after saving the information*`);
                 await user.send({ embeds: [embed] });
+                await user.deleteDM();
             } catch (e) {
                 console.log(e);
             }
             return;
         }
     }
-    console.log(Requests)
 };
 
 module.exports = {

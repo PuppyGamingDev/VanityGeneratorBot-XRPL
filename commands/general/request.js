@@ -7,7 +7,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("request")
         .setDescription("Request a vanity address")
-        .addStringOption(option => option.setName('string').setDescription('The value you want (5+ may take a long time)').setRequired(true)),
+        .addStringOption(option => option.setName('string').setDescription('The value you want (5+ may take a long time)').setRequired(true))
+        .setDMPermission(true),
     userInstall: true,
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
@@ -21,8 +22,9 @@ module.exports = {
             return await interaction.editReply({ content: `Sorry but I couldn't seem to DM you, either open your DMs or open a DM with me first`});
         }
 
-        addRequest(id, interaction.user.id, requesting, 0, true);
+        await addRequest(id, interaction.user.id, requesting, 0, true);
         updateRequests();
+        console.log(`>>REQUEST>> ${interaction.user.displayName} -requested- ${requesting}`);
         return await interaction.editReply({ content: `Your request has been added ✅`});
     },
 };
