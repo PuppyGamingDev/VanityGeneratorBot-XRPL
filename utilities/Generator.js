@@ -1,5 +1,5 @@
 const keypairs = require("ripple-keypairs");
-const { getRequestsArray, foundRequest } = require("./Storage");
+const { getRequestsArray, foundRequest, updateStatus } = require("./Storage");
 
 let running = false;
 let allRequests = [];
@@ -12,7 +12,8 @@ const updateRequests = async () => {
 };
 
 const RunRequests = async () => {
-    console.log('Looping');
+    updateStatus();
+    console.log('Checkign for matches');
     running = true;
     let attempts = 1;
 
@@ -54,6 +55,7 @@ const RunRequests = async () => {
                 allRequests = await getRequestsArray();
                 attempts = 1; // Reset attempts and ensure we check for new requests again
             }
+            updateStatus();
 
             // Yield control to the event loop
             await new Promise(resolve => setImmediate(resolve));

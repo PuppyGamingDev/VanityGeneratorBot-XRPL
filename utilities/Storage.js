@@ -48,7 +48,9 @@ const foundRequest = async (found, seed, address) => {
                 const embed = new EmbedBuilder()
                     .setTitle(`Vanity Address Found!`)
                     .setColor(Colors.Green)
-                    .setDescription(`**Phrase:** ${v.request}\n**Address: **${address}\n**Seed:** ${seed}\n\nAll addresses are derived from the seeds using the 'ecdsa-secp256k1' algorithm.\n\n*It is advised that you CLOSE THIS DM CHAT as soon as possible after saving the information*`);
+                    .setDescription(
+                        `**Phrase:** ${v.request}\n**Address: **${address}\n**Seed:** ${seed}\n\nAll addresses are derived from the seeds using the 'ecdsa-secp256k1' algorithm.\n\n*It is advised that you CLOSE THIS DM CHAT as soon as possible after saving the information*`
+                    );
                 await user.send({ embeds: [embed] });
                 await user.deleteDM();
             } catch (e) {
@@ -59,10 +61,16 @@ const foundRequest = async (found, seed, address) => {
     }
 };
 
+const { ActivityType } = require("discord.js");
+const updateStatus = async () => {
+    await Client.user.setActivity(`${Requests.size.toLocaleString()} requests`, { type: ActivityType.Watching });
+};
+
 module.exports = {
     connectDB,
     addRequest,
     removeRequest,
     getRequestsArray,
-    foundRequest
+    foundRequest,
+    updateStatus
 };
