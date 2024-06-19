@@ -1,5 +1,7 @@
 # VanityGeneratorBot-XRPL
-Discord bot for users to generate Vanity Wallet Addresses for XRP Ledger
+Discord bot for users to generate Vanity Wallet Addresses for XRP Ledger.
+
+This bot was an adaptation of the useful script by WietseWind for generating Vanity Addresses [FOUND HERE](https://github.com/WietseWind/xrp-vanity-generator)
 
 ## Your Env file
 Rename the current `.env.example` to just `.env` and fill in the values.
