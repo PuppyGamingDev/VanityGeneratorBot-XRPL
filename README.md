@@ -33,6 +33,8 @@ You can start the bot using the command `node Bot.js`. It will display in the co
 ## Usage
 You can easily request a vanity address using the `/request` command. It will add your request into the list of terms it is searching for and begin looking (if not already). Once the queue is empty, the bot takes a break from generating addresses as there is no need. It doesn't save any information about addresses and seeds locally, once it send the result to a user, it moves onto the next.
 
+You can view your open requests with the `/view` command.
+
 ## Finishing up
 If you have any questions, my DMs are always open on
 

@@ -66,11 +66,22 @@ const updateStatus = async () => {
     await Client.user.setActivity(`${Requests.size.toLocaleString()} requests`, { type: ActivityType.Watching });
 };
 
+const checkUserRequests = (id) => {
+    var myRequests = [];
+    for (const [k, v] of Requests.entries()) {
+        if (v.user === id) {
+            myRequests.push(v.request)
+        }
+    }
+    return myRequests;
+}
+
 module.exports = {
     connectDB,
     addRequest,
     removeRequest,
     getRequestsArray,
     foundRequest,
-    updateStatus
+    updateStatus,
+    checkUserRequests
 };
