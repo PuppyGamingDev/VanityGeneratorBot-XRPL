@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, Colors } = require("discord.js");
 const { addRequest } = require('../../utilities/Storage');
 const { updateRequests } = require('../../utilities/Generator');
 const uuid = require('uuid');
+const { logCommandUsage } = require('../../utilities/Calls');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,6 +26,7 @@ module.exports = {
         await addRequest(id, interaction.user.id, requesting, 0, true);
         updateRequests();
         console.log(`>>REQUEST>> ${interaction.user.displayName} -requested- ${requesting}`);
+        logCommandUsage(interaction.client, interaction.user.displayName, requesting)
         return await interaction.editReply({ content: `Your request has been added ✅`});
     },
 };

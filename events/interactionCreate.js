@@ -1,5 +1,4 @@
 const { Events, EmbedBuilder, Colors } = require('discord.js');
-const { logCommandUsage } = require('../utilities/Calls');
 
 // Handles Slash Command Interactions
 module.exports = {
@@ -13,7 +12,6 @@ module.exports = {
 			}
 			try {
 				await command.execute(interaction);
-				await logCommandUsage(interaction, "interactionCreate");
 			} catch (error) {
 				console.error(`Error executing ${interaction.commandName}`);
 				console.error(error);
